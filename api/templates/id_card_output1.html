@@ -1,0 +1,12 @@
+<!-- id_card_output.html -->
+
+{% for id_card in id_cards %}
+    <div>
+        <h2>{{ id_card.name }}</h2>
+        <p>ID Number: {{ id_card.id_number }}</p>
+        <p>DOB: {{ id_card.dob }}</p>
+        <p>Card Number: {{ id_card.card_number }}</p>
+        <img src="{{ id_card.photo.url }}" alt="Photo">
+        <!-- Display front and back images if saved -->
+    </div>
+{% endfor %}

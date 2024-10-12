@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5; 
+            color: #333; 
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Prevent scrolling during loading */
+        }
+
+        /* Loader Styles */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Ensure it's above all content */
+        }
+
+        .spinner {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #00bcd4; /* Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Rest of your styles remain unchanged... */
+        
+        .header {
+            background: #ffffff; 
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: calc(100% - 250px);
+            left: 250px;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00bcd4;
+            text-transform: uppercase;
+            display: flex; /* Use flexbox to align items */
+            align-items: center; /* Center align vertically */
+        }
+
+        .logo img {
+            margin-right: 10px; /* Add space between the logo and the text */
+        }
+
+        .wallet-notifications {
+            display: flex;
+            align-items: center;
+        }
+
+        .wallet {
+            margin-right: 30px;
+            font-weight: bold;
+            background: #e0f7fa;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 1.3rem;
+        }
+
+        .notification {
+            position: relative;
+            cursor: pointer;
+            margin-right: 20px; /* Space between notification and profile */
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: #ff5722;
+            color: white;
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 0.75rem;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            margin-right: 5px; /* Space between profile image and username */
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 10px;
+            top: 60px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 150px;
+        }
+
+        .profile-dropdown a {
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: #e0f7fa;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #ffffff; 
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px;
+        }
+
+        .sidebar a {
+            padding: 20px 30px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+            color: #00bcd4;
+        }
+
+        .sidebar a:hover {
+            background-color: #e0f7fa;
+            transform: translateX(5px);
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 100px 40px;
+            min-height: calc(100vh - 80px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #00bcd4;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: #ffffff;
+            flex: 1 1 calc(33.333% - 20px);
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #00bcd4;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .view-button {
+            background-color: #00bcd4;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .view-button:hover {
+            background-color: #008cba;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #9ba9b5;
+            font-size: 0.9rem;
+        }
+
+        .coming-soon {
+            background-color: #fff3cd; /* Light yellow background */
+            border: 1px solid #ffeeba; /* Light yellow border */
+            color: #856404; /* Dark yellow text */
+            text-align: center;
+        }
+
+        .coming-soon .view-button.disabled {
+            background-color: #c6c8ca; /* Grey background for disabled button */
+            color: #6c757d; /* Grey text */
+            cursor: not-allowed; /* Indicate that the button is not clickable */
+        }
+
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .content {
+                margin-left: 200px;
+            }
+            .card {
+                flex: 1 1 calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 150px;
+            }
+            .content {
+                margin-left: 150px;
+            }
+            .card {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <img src="https://via.placeholder.com/150x50.png?text=Dashboard+Logo" alt="Dashboard Logo" style="vertical-align: middle; margin-right: 10px;">
+            smartcardprint.in
+        </div>
+        
+        <div class="wallet-notifications">
+            <div class="wallet">Wallet: ₹ {{ wallet_balance }}</div>
+            <div class="notification">
+                <i class="fas fa-bell" style="font-size: 24px;"></i>
+                <div class="badge">3</div>
+            </div>
+            <div class="profile" onclick="toggleProfileDropdown()">
+                <img src="https://via.placeholder.com/40/cccccc/ffffff/?text=Profile" alt="Profile Photo" class="profile-photo" width="50" height="50">
+                <span>Username</span>
+            </div>
+            <div class="profile-dropdown" id="profileDropdown">
+                <a href="#">Profile</a>
+                <a href="#">Settings</a>
+                <a href="{% url 'account_logout' %}">Logout</a>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="sidebar">
+        <a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="#"><i class="fas fa-id-card"></i> ID Cards</a>
+        <a href="{% url 'wallet' %}"><i class="fas fa-wallet"></i> Wallet Management</a>
+        <a href="#"><i class="fas fa-cogs"></i> Settings</a>
+        <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+    </div>
+    
+    <div class="content">
+        <h1>Welcome to Your Dashboard</h1>
+        
+        <div class="card-container">
+            <div class="card">
+                <i class="fas fa-id-card card-icon"></i>
+                <div class="card-title">Aadhaar Card 1</div>
+                <a href="{% url 'upload_pdf' %}" class="view-button">Create</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-wallet card-icon"></i>
+                <div class="card-title">Adhaar Card 2</div>
+                <a href="#" class="view-button">Create</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-cogs card-icon"></i>
+                <div class="card-title">Pan Card</div>
+                <a href="{% url 'upload_pan' %}" class="view-button">Create</a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-id-card card-icon"></i>
+                <div class="card-title">Ayushman</div>
+                <a href="{% url 'upload_ayushman' %}" class="view-button">Create</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-wallet card-icon"></i>
+                <div class="card-title">Aabha Card</div>
+                <a href="{% url 'upload_abha' %}" class="view-button">Create</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-cogs card-icon"></i>
+                <div class="card-title">Election</div>
+                <a href="{% url 'upload_election' %}" class="view-button">Create</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-cogs card-icon"></i>
+                <div class="card-title">E-Shram</div>
+                <a href="{% url 'upload_eshram' %}" class="view-button">Create</a>
+            </div>
+            <!-- Additional cards can be added here -->
+             <!-- Coming Soon Card -->
+            <div class="card coming-soon">
+                <i class="fas fa-hourglass-start card-icon"></i>
+                <div class="card-title">Driving Licence</div>
+                <p>This feature is on its way! Stay tuned for updates.</p>
+                <a href="#" class="view-button disabled" onclick="return false;">Notify Me</a>
+            </div>
+            <div class="card coming-soon">
+                <i class="fas fa-hourglass-start card-icon"></i>
+                <div class="card-title">Ration Card</div>
+                <p>This feature is on its way! Stay tuned for updates.</p>
+                <a href="#" class="view-button disabled" onclick="return false;">Notify Me</a>
+            </div>
+        </div>
+
+
+        <div class="footer">© 2024 smartcardprint.in. All rights reserved.</div>
+    </div>
+
+    <script>
+        // Hide the loader after the content is loaded
+        window.onload = function() {
+            // Simulate a delay for testing
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                loader.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Allow scrolling after loading
+            }, 1000); // 1 seconds delay
+        };
+
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile') && !event.target.matches('.profile img')) {
+                const dropdown = document.getElementById('profileDropdown');
+                dropdown.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

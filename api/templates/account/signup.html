@@ -1,0 +1,316 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="Sign up for your account">
+    <title>Id Card Home</title>
+    {% load static %}
+    <link href="{% static 'home/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'home/css/animate.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'home/css/pe-icon-7-stroke.css' %}">
+    <link href="{% static 'home/css/style-magnific-popup.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'home/css/all.min.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i,400,400i,600,700" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'home/images/favicon.ico' %}">
+    <style>
+      
+        .register-form-wrapper {
+    background-color: #f8f9fa;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+        .register-input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    color: #495057;
+    box-shadow: none;
+    transition: border-color 0.3s ease;
+}
+        .register-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+.register-submit {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+        .register-submit:hover {
+            background-color: #0056b3;
+        }
+        .form-group label {
+    font-size: 1.1rem;
+    color: #212529;
+}
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px;
+        }
+        hr {
+        border-top: 1px solid #ddd;
+        }
+
+        .messages li {
+            color: #ff9800;
+            font-size: 0.9rem;
+            list-style: none;
+        }
+        .helptext {
+            display: block;
+            margin-top: 10px;
+            text-align: right;
+        }
+        .google-login-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #4285F4;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.google-login-btn:hover {
+    background-color: #357ae8;
+}
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="#">SmartCardPrint.in</a>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+                    </button>
+                    <div class="navbar-collapse collapse" id="navbarCollapse">
+                        <ul class="navbar-nav ml-auto">
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#team">Team</a></li>
+                            <li><a href="#pricing">Pricing</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li class="discover-link"><a href="#" class="external discover-btn">Get Started</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+    </header>
+
+    <section class="home-section" id="home">
+        <div class="container">
+            <div class="row">
+                
+                
+                
+                
+                
+                <div class="col-md-5 padding-top-20">
+                    <h1 class="text-center" style="font-size: 2.5rem; font-weight: 600; color: #212529; margin-bottom: 25px;">Create Your Account!</h1>
+                    
+                    <p class="text-center" style="font-size: 1.2rem; color: #6c757d; margin-bottom: 30px;">
+                        Already have an account? <a href="{% url 'account_login' %}" style="color: #007bff; font-weight: 500;">Sign in</a>
+                    </p>
+                
+                    <div class="register-form-wrapper wow fadeInUp" data-wow-delay="0.3s">
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li class="alert alert-warning">{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                
+                        <form method="post" action="{% url 'account_signup' %}" class="register-form">
+                            {% csrf_token %}
+                            
+                            <!-- Username Field -->
+                            <div class="form-group">
+                                <label for="username" class="d-flex align-items-center" style="color: #495057; font-weight: 500;">
+                                    <i class="fas fa-user-circle me-2" style="color: #007bff;"></i> 
+                                    &nbsp;
+                                    Username*</label>
+                                <input type="text" id="username" name="username" class="form-control" required style="border-radius: 30px; padding: 10px 15px; border: 1px solid #ced4da; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);">
+                                
+                                <!-- Username Error Handling -->
+                                {% if form.username.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.username.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        
+                            <!-- Email Field -->
+                            <div class="form-group">
+                                <label for="email" class="d-flex align-items-center" style="color: #495057; font-weight: 500;">
+                                    <i class="fas fa-envelope" style="color: #007bff;"></i> 
+                                    &nbsp;
+                                    Email*</label>
+                                <input type="email" id="email" name="email" class="form-control" required style="border-radius: 30px; padding: 10px 15px; border: 1px solid #ced4da; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);">
+                                
+                                <!-- Email Error Handling -->
+                                {% if form.email.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.email.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        
+                            <!-- Password Field -->
+                            <div class="form-group">
+                                <label for="password1" class="d-flex align-items-center" style="color: #495057; font-weight: 500;">
+                                    <i class="fas fa-lock me-2" style="color: #007bff;"></i> &nbsp;
+                                    Password*</label>
+                                <input type="password" id="password1" name="password1" class="form-control" required style="border-radius: 30px; padding: 10px 15px; border: 1px solid #ced4da; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);">
+                                
+                                <!-- Password Error Handling -->
+                                {% if form.password1.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.password1.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        
+                            <!-- Confirm Password Field -->
+                            <div class="form-group">
+                                <label for="password2" class="d-flex align-items-center" style="color: #495057; font-weight: 500;"></label>
+                                    <i class="fas fa-lock me-2" style="color: #007bff;"></i>  &nbsp;
+                                    Confirm Password*</label>
+                                <input type="password" id="password2" name="password2" class="form-control" required style="border-radius: 30px; padding: 10px 15px; border: 1px solid #ced4da; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);">
+                                
+                                <!-- Confirm Password Error Handling -->
+                                {% if form.password2.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.password2.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        
+                            <button type="submit" class="btn btn-primary btn-block" style="border-radius: 30px; padding: 12px; font-weight: 600; background-color: #007bff; border: none; box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);">
+                                Sign Up</button>
+                        </form>
+                        
+                
+                        <hr style="border-top: 2px solid #007bff; margin: 30px 0;">
+                
+                        <h2 class="text-center" style="font-size: 1.5rem; color: #212529; margin-bottom: 15px;">Or sign up with Google</h2>
+                
+                        <div class="text-center mb-4">
+                            <a href="{% provider_login_url 'google' %}?process=signup">
+                                <img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" alt="Sign up with Google" style="max-width: 280px;">
+                            </a>
+                        </div>
+                
+                        <p class="text-center" style="font-size: 0.9rem; color: #6c757d;">By signing up, you agree to our <a href="#" style="color: #007bff; font-weight: 500;">Terms and Conditions</a>.</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="col-md-7 margin-top-20">
+                    <div class="video-popup-wrapper margin-left-20">
+                        <div class="popup-gallery">
+                            <img src="{% static 'home/images/hero-img2.jpg' %}" class="width-100 hero-images" alt="pic">
+                            <a class="popup4 video-play-icon" href="https://www.youtube.com/watch?v=FPfQMVf4vwQ">
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="integration-platforms">
+                        <h5>Easy To Integrate With:</h5>
+                        <ul class="integration-mentions">
+                            <li><img src="{% static 'home/images/app01.png' %}" alt="Name"></li>
+                            <li><img src="{% static 'home/images/app02.png' %}" alt="Name"></li>
+                            <li><img src="{% static 'home/images/app03.png' %}" alt="Name"></li>
+                            <li><img src="{% static 'home/images/app04.png' %}" alt="Name"></li>
+                            <li><img src="{% static 'home/images/app05.png' %}" alt="Name"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <div class="container-fluid px-0">
+            <div class="row no-gutters mx-0">
+                <div class="col-md-4 footer-white-box text-center">
+                    <i class="pe-7s-map-2"></i>
+                    <h5>Get In Touch</h5>
+                    <p>10 Oxford Street, London, UK, E1 1EC</p>
+                    <p><a href="mailto:contact@youremail.com">the-office@square.co.uk</a></p>
+                    <p>+44 987 654 321</p>
+                </div>
+                <div class="col-md-4 footer-dark-grey-box text-center">
+                    <i class="pe-7s-comment"></i>
+                    <h5>Social Media</h5>
+                    <p>See below where you can find us.</p>
+                    <ul class="footer_social">
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fab fa-skype"></i></a></li>
+                        <li><a href="#"><i class="fab fa-dribble"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 footer-grey-box text-center">
+                    <i class="pe-7s-link"></i>
+                    <h5>Useful Links</h5>
+                    <a href="#" class="footer-links">Our Cookies Policy</a>
+                    <a href="#" class="footer-links">Meet The Team Behind Square</a>
+                    <a href="#" class="footer-links">Terms and Conditions</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 footer-bottom text-center">
+                    <p>© 2024 SmartCardPrint.in | All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'home/js/jquery.min.js' %}"></script>
+    <script src="{% static 'home/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'home/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'home/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'home/js/script.js' %}"></script>
+</body>
+</html>

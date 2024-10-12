@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Review Aadhaar</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Lucida Sans Unicode;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+    background: #ffffff; /* Dark background for navbar */
+    border-bottom: 2px solid #9f22ec; /* Bright border for visual separation */
+    padding: 10px 20px; /* Padding for spacing */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: #0f1010; /* Light text color for brand */
+    font-size: 24px; /* Larger font size for brand name */
+    font-weight: bold; /* Bold text for brand name */
+}
+
+.navbar-nav .nav-link {
+    color: #101010; /* White text color for nav links */
+    padding: 8px 16px; /* Padding for nav links */
+    font-size: 16px; /* Font size for nav links */
+    font-weight: 500; /* Medium weight for nav links */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #7b12f3; /* Change text color on hover */
+    background: rgba(0, 0, 0, 0.1); /* Light background color on hover */
+    border-radius: 1px; /* Rounded corners on hover */
+    display: flex;
+}
+
+/* Mobile Responsive Navigation */
+@media (max-width: 767px) {
+    .navbar-nav {
+        text-align: center; /* Center align nav links on small screens */
+    }
+
+    .navbar-nav .nav-link {
+        display: block; /* Display links as block on small screens */
+        margin: 5px 0; /* Margin for spacing */
+    }
+}
+
+.controls-container {
+    padding: 5px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.controls-container .button, .controls-container .button-secondary {
+    background: linear-gradient(145deg, #6e8efb, #a777e3);
+    border: none;
+    border-radius: 10px; /* Smaller border radius for a more modern look */
+    color: #fff;
+    font-size: 12px; /* Smaller font size */
+    font-weight: bold;
+    padding: 8px 16px; /* Reduced padding for compactness */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.controls-container .button:hover, .controls-container .button-secondary:hover {
+    background: linear-gradient(145deg, #4a5f99, #8a5cbf);
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.controls-container .button:active, .controls-container .button-secondary:active {
+    background: linear-gradient(145deg, #4a5f99, #8a5cbf);
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.controls-container .button-secondary {
+    background: linear-gradient(145deg, #e94e77, #e84a7a);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.controls-container .button-secondary:hover {
+    background: linear-gradient(145deg, #d8406f, #e7486e);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.controls-container .button-secondary:active {
+    background: linear-gradient(145deg, #c6365c, #d5436d);
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Styles */
+.button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.button-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.button-primary:hover {
+    background-color: #0056b3;
+}
+
+.button-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.button-success:hover {
+    background-color: #218838;
+}
+
+
+
+
+/* Custom Checkbox Styles */
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+}
+
+.custom-checkbox input {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #007bff;
+}
+
+.custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+    left: 6px;
+    top: 2px;
+    width: 8px;
+    height: 14px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.table {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.id-card-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0px;
+    margin-top: 0px;
+    position: relative;
+    transform: scale(1); /* Apply default 1.8x zoom */
+    transform-origin: center center;
+    transition: transform 0.2s ease;
+}
+
+.id-card-container {
+    width: 86.60mm; /* Set width to CR80 size */
+    height: 55.98mm; /* Set height to CR80 size */
+    /*width: 320px;  Increased size for better visibility */
+    /*height: 210px;  Increased size for better visibility */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    cursor: grab;
+    background-image: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    
+}
+
+.id-card-container:active {
+    cursor: grabbing;
+}
+
+.id-card-container.no-background {
+    background-image: none;
+}
+
+.id-card-front {
+    background-image: url("{% static 'images/aadhar_background1.png' %}");
+}
+
+.id-card-back {
+    background-image: url("{% static 'images/aadhar_background2.png' %}");
+}
+
+.id-card-content {
+    position: absolute;
+    top: 48px;
+    left: 100px;
+    color: #333;
+    font-size: 8px;
+    border-radius: 0px;
+    padding: 1px;
+    width: 160px;
+    /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);*/
+}
+
+.red-bordered-box {
+    position: absolute;
+    border: 1px solid rgba(0, 0, 0, 0.579); /* Red border */
+    top: 110px;
+    left: 100px;
+    font-size: 5.6px; /* Matching text styling */
+    padding: 2px;
+    width: 215px;
+}
+
+.vertical-text {
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    transform: rotate(-90deg);
+    transform-origin: bottom left;
+    font-size: 6px;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+    text-align: center;
+    padding-bottom: 12px;
+}
+
+.vertical-text-back {
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    transform: rotate(-90deg);
+    transform-origin: bottom left;
+    font-size: 6px;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+    text-align: center;
+    padding-bottom: 12px;
+}
+
+.profile-photo {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    width: 85px;
+    height: 110px;
+    border: 1px solid #000000; /* White border around the photo */
+    border-radius: 2px;
+    filter: brightness(1) contrast(1) grayscale(0);
+    transition: filter 0.3s ease;
+}
+
+.profile-photo-controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.profile-photo-controls label {
+    display: block;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.profile-photo-controls input[type="range"] {
+    width: 200px;
+}
+
+
+
+.qr-code {
+    position: absolute;
+    top: 60px;
+    right: 1px;
+    width: 90px;
+    height: 90px;
+}
+
+.card-number-front, .card-number-back {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card-number-front {
+    position: absolute;
+    right: 96px;
+    bottom: 19px;
+}
+.card-slogan-front {
+    position: absolute;
+    right: 82px;
+    top: 191px;
+    font-size: 15px;
+    font-weight: bold; /* Makes the font bold */
+    font-stretch: expanded; /* Stretches the font horizontally */
+    letter-spacing: 1px; /* Increases space between letters */
+}
+
+.card-number-back {
+    position: absolute;
+    right: 50%;
+    bottom: 15px;
+    transform: translateX(50%);
+    color: #333;
+    text-align: center;
+}
+
+.card-number-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.vid {
+    font-size: 12px;
+    color: #333;
+    border-top: 1px dotted #333;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.address {
+    position: absolute;
+    top: 44px;
+    left: 5px;
+    color: #333;
+    font-size: 7.5px;
+    border-radius: 5px;
+    padding: 8px;
+    width: 235px;
+    /*background: rgba(255, 255, 255, 0.7);*/
+    /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);*/
+}
+
+.zoom-container {
+    overflow: hidden;
+    width: 100%;
+    height: 55%;
+    border: 2px solid hsl(212, 72%, 59%); /* Sleek, modern border color */
+    padding: 5px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3)); /* Gradient background */
+    border-radius: 20px; /* Smooth rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 2px 5px rgba(255, 255, 255, 0.1); /* Dual shadow effect */
+    backdrop-filter: blur(20px); /* Enhanced glass effect */
+    transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Smooth transitions */
+}
+
+
+
+
+
+/* Popup Container */
+.popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22vw; /* Further reduced width */
+    max-width: 320px;
+    height: auto;
+    background: linear-gradient(135deg, #1a1a1a, #262626);
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8);
+    display: flex;
+    overflow: hidden;
+    z-index: 1000;
+    animation: futuristicSlideIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Popup Header */
+.popup-header {
+    background: #1f1f1f;
+    color: #e0e0e0;
+    padding: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+/* Popup Content */
+.popup-content {
+    display: flex;
+    padding: 5px;
+    gap: 2px;
+}
+
+/* Profile Photo Section */
+.profile-photo-section {
+    flex: 0 0 90px; /* Reduced profile photo section */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #141414;
+    padding: 2%;
+    border-radius: 8px;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4);
+}
+
+.profile-photo-section img {
+    max-width: 120%;
+    max-height: 100px; /* Slightly smaller photo */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Controls Section */
+.controls-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px; /* Reduced gap between controls */
+    padding: 0 2px;
+    background: #202020;
+    border-radius: 8px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.controls-section label {
+    color: #b0b0b0;
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 2px; /* Reduced margin for compactness */
+}
+
+.controls-section input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+    -webkit-appearance: none;
+    background: #3a3a3a;
+    border-radius: 8px;
+    height: 8px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.controls-section input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #50e3c2;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.controls-section input[type="range"]::-moz-range-thumb {
+    background: #50e3c2;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.controls-section input[type="range"]:hover {
+    background: #4c4c4c;
+}
+
+/* Buttons */
+.popup-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px; /* Reduced margin for compactness */
+}
+
+.popup-buttons .button {
+    border: none;
+    padding: 6px 12px; /* Compact buttons */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.popup-buttons .button:hover {
+    background: linear-gradient(135deg, #5a6fc1, #9e6fd0);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.popup-buttons .button:active {
+    background: linear-gradient(135deg, #4a5f99, #8a5cbf);
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #e94e77;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+    transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+    background: #d8406f;
+}
+
+.close-btn:focus {
+    outline: none;
+}
+
+/* Animation for popup */
+@keyframes futuristicSlideIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(0.7) rotate(-10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .popup-container {
+        width: 75vw;
+        max-width: 280px;
+    }
+
+    .profile-photo-section {
+        flex: 0 0 80px;
+    }
+
+    .profile-photo-section img {
+        max-height: 70px;
+    }
+}
+
+
+
+/* End Popup css */
+
+
+@media screen {
+    .id-card-container {
+        transform: scale(1); /* Apply 2x zoom */
+        transform-origin: top left; /* Ensure the zoom starts from the top-left corner */
+    }
+}
+
+
+.padding-id {
+    padding: 20px; /* Adjust padding as needed */
+}
+
+
+
+@media print {
+    @page {
+        size: 85.60mm 53.98mm; /* CR80 size */
+        margin: 0;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    .navbar, .controls-container, .navigation {
+        display: none; /* Hide navbar and controls container */
+    }
+
+  
+
+    .id-card-container, .id-card-container * {
+        visibility: visible; /* Show only the ID card */
+    }
+
+    /* Hide padding class during printing */
+    .padding-id {
+        display: none; /* Hide padding during print */
+    }
+
+
+    .id-card-wrapper {
+        visibility: visible;
+        page-break-inside: avoid; 
+        width: 86.60mm; /* Set width to CR80 size */
+        height: 54.98mm; /* Set height to CR80 size */
+        margin: 0;
+        padding: 0;
+        position: relative;
+        zoom: 1.35; /* Adjust the zoom to fit content */ 
+        
+    }
+    
+
+    .id-card-container {
+        
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 100%; /* Adjust width to fit within the page */
+        height: 100%; /* Adjust height to fit within the page */
+        display: block;
+        background-size: cover;
+        background-position: center;
+        border-radius: 0;
+        border: none;
+        margin: 0; /* Remove margins */
+        padding: 0; /* Remove padding */
+    }
+
+    /* Additional adjustments to ensure content fits */
+    .id-card-content, .profile-photo, .qr-code {
+        max-width: 100%;
+        max-height: 100%;
+        overflow: hidden;
+        
+    }
+
+    /* Front side of the ID card */
+    .id-card-front {
+        background-image: url("{% static 'images/aadhar_background1.png' %}"); /* Ensure the path is correct */
+        margin: 0; /* Remove margins */
+        padding: 0; /* Remove padding */
+        visibility: visible;
+        page-break-after: always; /* Ensure the front card is on a separate page */
+    }
+
+    /* Back side of the ID card */
+    .id-card-back {
+        background-image: url("{% static 'images/aadhar_background2.png' %}"); /* Ensure the path is correct */
+        margin: 0; /* Remove margins */
+        padding: 0; /* Remove padding */
+        visibility: visible;
+        page-break-before: always; /* Start a new page before the back side */
+    }
+
+
+
+    /* Specific pages for front and back */
+    .print-front .id-card-back {
+        display: none;
+    }
+
+    .print-back .id-card-front {
+        display: none;
+        page-break-after: auto; /* Ensure page break doesn't apply when printing only the back */
+    }
+}
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg  ">
+        <a class="navbar-brand" href="#">ID Card Generator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'wallet' %}">Wallet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'id_card_input' %}">Create ID Card</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'id_card_output' %}">View ID Cards</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account_logout' %}">Signout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="controls-container">
+        <!-- Existing controls -->
+        
+        <a href="{% url 'upload_pdf' %}" class="button button-success" >Upload</a>
+        <div class="toggle-background">
+            <label class="custom-checkbox">
+                <input type="checkbox" class="form-check-input" id="toggleBackground">
+                <span class="checkmark"></span> &nbsp; &nbsp; &nbsp; View Full
+            </label>
+        </div>
+        
+    
+        
+        <div>
+            
+            <select id="printOption">
+                <option value="both">Both Pages </option>
+                <option value="front">Front Page </option>
+                <option value="back">Back Page </option>
+                
+            </select>
+
+
+
+            <button class="button button-success" onclick="printIDCard()">Print ID Card</button>
+            <!--
+            <button class="button button-success" onclick="printIDCardVirtual()">Print ID Image</button>
+            -->
+
+           
+        </div>
+    
+
+
+        <!-- Profile Picture Controls -->
+        <div>
+            <button class="button button-primary" onclick="openProfileControls()">Adjust Profile</button>
+        </div>
+    </div>
+    
+    <!-- Profile Picture Control Popup -->
+ <!-- Popup Structure -->
+<div id="profileControlsPopup" class="popup-container" style="display: none;">
+    <button class="close-btn" onclick="closeProfileControls()">×</button>
+    <div class="popup-header">Adjust Profile Photo</div>
+    <div class="popup-content">
+        <!-- Profile Photo Section -->
+        <div class="profile-photo-section">
+            <img id="profileImagePreview" src="" alt="Profile Photo Preview">
+        </div>
+        
+        <!-- Controls Section -->
+        <div class="controls-section">
+            <div class="control-group">
+                <label for="brightness">Brightness</label>
+                <input type="range" id="brightness" min="0" max="200" step="1" value="100" oninput="updatePreview()">
+            </div>
+            <div class="control-group">
+                <label for="contrast">Contrast</label>
+                <input type="range" id="contrast" min="0" max="200" step="1" value="100" oninput="updatePreview()">
+            </div>
+            <div class="control-group">
+                <label for="saturation">Saturation</label>
+                <input type="range" id="saturation" min="0" max="200" step="1" value="100" oninput="updatePreview()">
+            </div>
+            <div class="control-group">
+                <label for="blur">Blur</label>
+                <input type="range" id="blur" min="0" max="10" step="0.1" value="0" oninput="updatePreview()">
+            </div>
+            <div class="popup-buttons">
+                <button class="button" onclick="applyAdjustments()">Apply</button>
+                <button class="button" onclick="resetAdjustments()">Reset</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+    
+ 
+    
+    
+    
+
+    <div class="main-content">
+        
+            <div class="padding-id">
+
+            </div>
+            <div class="id-card-wrapper">
+                <div class="id-card-container id-card-front" id="idCardFront">
+                    <div class="vertical-text">Aadhar no. issued: {{ data.issued_date }}</div>
+                    {% if data.profile_photo %}
+                    <img class="profile-photo" id="mainProfilePhoto" src="data:image/png;base64,{{ data.profile_photo }}" alt="Profile Photo"/>
+                    {% endif %}
+                    <div class="id-card-content">
+                     <div><b>{{ data.hindi_name }}</b><br><b>{{ data.name }}</b></div> 
+                     <div>
+                       </div>
+                        <div><b>जन्म तिथी / DOB: {{ data.dob|date:"d/m/Y" }}</b></div>
+                        <div><b>{{ data.gender_hindi }}/{{ data.gender_english|upper }}</b>
+                            <br>
+                            <b>Mobile: {{ data.mobile }}</b>
+
+                        </div>
+                    </div>
+                    <div class="red-bordered-box" >
+                        <b>आधार पहचान का प्रमाण है, नागरिकता या जन्मतिथी का नही ।</b>
+                        
+                        इसका उपयोग सत्यापन <br>( ऑनलाइन प्रमाणीकरण, या क्यूआर कोड/
+                        
+                        ऑनलाइन एक्सएमएल कि स्केनिंग) के साथ किया जाना चाहिये ।
+                        <br>
+                        <b>Aadhaar is proof of identity, not of citizenship</b>
+                        <b>or date of birth.</b>
+                        It should be used with verification (online 
+                        authentication, or scanning of QR code / offline XML).
+                    </div>
+                    <div class="card-number-front">{{ data.card_number|addslashes|slice:":4" }} {{ data.card_number|addslashes|slice:"4:8" }} {{ data.card_number|addslashes|slice:"8:12" }} {{ data.card_number|addslashes|slice:"12:16" }}</div>
+                    <div class="card-slogan-front" >मेरा <font style="color: rgb(232, 3, 3);">आधार</font>, मेरी पहचान</div>
+                </div>
+
+                <div class="id-card-container id-card-back" id="idCardBack">
+                    <div class="vertical-text-back">Details as on: {{ data.details_date }}</div>
+                    <div class="address">
+                        <b>पत्ता:</b> <br> <b>{{ data.address_hindi_translated }}</b>
+                        <br>      
+                        <b>Address:</b><br> <b>{{ data.address }}</b>
+                    </div>
+                    <div class="card-number-back">
+                        <div>{{ data.card_number|addslashes|slice:":4" }} {{ data.card_number|addslashes|slice:"4:8" }} {{ data.card_number|addslashes|slice:"8:12" }} {{ data.card_number|addslashes|slice:"12:16" }}</div>
+                        <div class="vid">VID: {{ data.vid|addslashes|slice:":4" }} {{ data.vid|addslashes|slice:"4:8" }} {{ data.vid|addslashes|slice:"8:12" }} {{ data.vid|addslashes|slice:"12:16" }}</div>
+                    </div>
+                    {% if data.qr_code_image %}
+                    <img class="qr-code" src="data:image/png;base64,{{ data.qr_code_image }}" alt="QR Code" />
+                    {% endif %}
+                </div>
+            </div>
+
+
+
+        
+        <div class="navigation" style="padding-top: 250px;">
+            <form method="POST" action="{% url 'save_id_card' %}">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name:</th>
+                        <td>{{ data.name }}
+                            <br>
+                            {{ data.hindi_name }}
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth:</th>
+                        <td>{{ data.dob|date:"d/m/Y" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Card Number:</th>
+                        <td>{{ data.card_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address (Hindi):</th>
+                        <td>{{ data.address_hindi }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address (Hindi) Translate:</th>
+                        <td>{{ data.address_hindi_translated }}</td>
+                    </tr>
+
+
+                    
+                    <!-- Add more fields as necessary -->
+                </table>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+
+
+    </div>
+
+    <script>
+document.getElementById('toggleBackground').addEventListener('change', function () {
+    const cards = document.querySelectorAll('.id-card-container');
+    if (this.checked) {
+        cards.forEach(card => card.classList.remove('no-background'));
+    } else {
+        cards.forEach(card => card.classList.add('no-background'));
+    }
+});
+
+// Initialize background visibility based on checkbox state on page load
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('toggleBackground');
+    const cards = document.querySelectorAll('.id-card-container');
+    if (checkbox.checked) {
+        cards.forEach(card => card.classList.remove('no-background'));
+    } else {
+        cards.forEach(card => card.classList.add('no-background'));
+    }
+});
+
+
+
+
+
+
+
+function openProfileControls() {
+    const profileImg = document.getElementById('mainProfilePhoto');
+    const profileImagePreview = document.getElementById('profileImagePreview');
+
+    // Set the source of the profile image preview
+    profileImagePreview.src = profileImg.src;
+    updatePreview(); // Initialize preview with current settings
+
+    // Display the popup
+    document.getElementById('profileControlsPopup').style.display = 'block';
+}
+
+function closeProfileControls() {
+    document.getElementById('profileControlsPopup').style.display = 'none';
+}
+
+function updatePreview() {
+    const brightness = document.getElementById('brightness').value;
+    const contrast = document.getElementById('contrast').value;
+    const saturation = document.getElementById('saturation').value;
+    const blur = document.getElementById('blur').value;
+    const profileImagePreview = document.getElementById('profileImagePreview');
+
+    // Apply the filters to the preview image
+    profileImagePreview.style.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%) blur(${blur}px)`;
+}
+
+function applyAdjustments() {
+    const brightness = document.getElementById('brightness').value;
+    const contrast = document.getElementById('contrast').value;
+    const saturation = document.getElementById('saturation').value;
+    const blur = document.getElementById('blur').value;
+    const profileImg = document.getElementById('mainProfilePhoto');
+
+    // Apply the filters to the original profile image
+    profileImg.style.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%) blur(${blur}px)`;
+    closeProfileControls(); // Close the popup after applying adjustments
+}
+
+function resetAdjustments() {
+    document.getElementById('brightness').value = 100;
+    document.getElementById('contrast').value = 100;
+    document.getElementById('saturation').value = 100;
+    document.getElementById('blur').value = 0;
+
+    updatePreview();
+}
+
+// Close the modal if the user clicks outside of it
+window.onclick = function(event) {
+    if (event.target == document.getElementById('profileControlsPopup')) {
+        closeProfileControls();
+    }
+}
+
+function printIDCard() {
+    const printOption = document.getElementById("printOption").value;
+    const showBackground = document.getElementById("toggleBackground").checked;
+
+    if (printOption === "front") {
+        printFront(showBackground);
+    } else if (printOption === "back") {
+        printBack(showBackground);
+    } else if (printOption === "both") {
+        printBoth(showBackground);
+    }
+}
+
+function printFront(showBackground) {
+    const front = document.getElementById("idCardFront");
+    const back = document.getElementById("idCardBack");
+
+    // Hide the back side and apply print CSS
+    back.style.display = 'none';
+    front.style.display = 'block';
+    document.body.classList.add('print-front-page');
+
+    // Toggle background visibility
+    if (showBackground) {
+        front.classList.remove('no-background');
+    } else {
+        front.classList.add('no-background');
+    }
+
+    // Trigger print
+    window.print();
+
+    // Restore original state
+    back.style.display = 'block';
+    document.body.classList.remove('print-front-page');
+}
+
+function printBack(showBackground) {
+    const front = document.getElementById("idCardFront");
+    const back = document.getElementById("idCardBack");
+
+    // Hide the front side and apply print CSS
+    front.style.display = 'none';
+    back.style.display = 'block';
+    document.body.classList.add('print-back-page');
+
+    // Toggle background visibility
+    if (showBackground) {
+        back.classList.remove('no-background');
+    } else {
+        back.classList.add('no-background');
+    }
+
+    // Trigger print
+    window.print();
+
+    // Restore original state
+    front.style.display = 'block';
+    document.body.classList.remove('print-back-page');
+}
+
+function printBoth(showBackground) {
+    const front = document.getElementById("idCardFront");
+    const back = document.getElementById("idCardBack");
+
+    // Ensure both sides are visible and apply print CSS
+    front.style.display = 'block';
+    back.style.display = 'block';
+    document.body.classList.add('print-both-pages');
+
+    // Toggle background visibility
+    if (showBackground) {
+        front.classList.remove('no-background');
+        back.classList.remove('no-background');
+    } else {
+        front.classList.add('no-background');
+        back.classList.add('no-background');
+    }
+
+    // Trigger print, first page (front) will be printed, then the second (back)
+    window.print();
+
+    // Restore original state
+    document.body.classList.remove('print-both-pages');
+}
+
+
+
+function printIDCardVirtual() {
+    const printOption = document.getElementById("printOption").value;
+    const showBackground = document.getElementById("toggleBackground").checked;
+
+    if (printOption === "front") {
+        generateImageAndPrint("idCardFront", showBackground);
+    } else if (printOption === "back") {
+        generateImageAndPrint("idCardBack", showBackground);
+    } else if (printOption === "both") {
+        generateImageAndPrintBoth(showBackground);
+    }
+}
+
+function generateImageAndPrint(elementId, showBackground) {
+    const element = document.getElementById(elementId);
+
+    // Toggle background visibility
+    if (showBackground) {
+        element.classList.remove('no-background');
+    } else {
+        element.classList.add('no-background');
+    }
+
+    // Convert the element to an image
+    html2canvas(element).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgWindow = window.open('', '_blank');
+        imgWindow.document.write('<img src="' + imgData + '" onload="window.print(); window.close();" />');
+        imgWindow.document.close();
+    });
+}
+
+function generateImageAndPrintBoth(showBackground) {
+    const front = document.getElementById("idCardFront");
+    const back = document.getElementById("idCardBack");
+
+    // Toggle background visibility for both sides
+    if (showBackground) {
+        front.classList.remove('no-background');
+        back.classList.remove('no-background');
+    } else {
+        front.classList.add('no-background');
+        back.classList.add('no-background');
+    }
+
+    // Convert both sides to images and print them
+    html2canvas(front).then(frontCanvas => {
+        const frontImgData = frontCanvas.toDataURL('image/png');
+        html2canvas(back).then(backCanvas => {
+            const backImgData = backCanvas.toDataURL('image/png');
+
+            const imgWindow = window.open('', '_blank');
+            imgWindow.document.write(`
+                <img src="${frontImgData}" onload="window.print();" />
+                <img src="${backImgData}" onload="window.print(); window.close();" />
+            `);
+            imgWindow.document.close();
+        });
+    });
+}
+
+
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
+

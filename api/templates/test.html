@@ -1,0 +1,158 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="Login to your account">
+    <title>Id Card Home</title>
+    {% load static %}
+    <link href="{% static 'home/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'home/css/animate.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'home/css/pe-icon-7-stroke.css' %}">
+    <link href="{% static 'home/css/style-magnific-popup.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'home/css/all.min.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i,400,400i,600,700" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'home/images/favicon.ico' %}">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="#">SmartCardPrint.in</a>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+                    </button>
+                    <div class="navbar-collapse collapse" id="navbarCollapse">
+                        <ul class="navbar-nav ml-auto">
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#team">Team</a></li>
+                            <li><a href="#showcase">Showcase</a></li>
+                            <li><a href="#pricing">Pricing</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li class="discover-link"><a href="#" class="external discover-btn">Get Started</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+    </header>
+
+    <section class="home-section" id="home">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 padding-top-20">
+                    <h1>Sign In</h1>
+                    <p>If you have not created an account yet, then please <a href="{% url 'account_signup' %}">sign up</a> first.</p>
+
+                    <div class="register-form-wrapper wow bounceIn" data-wow-delay="0.5s">
+                        {% if messages %}
+                            <ul class="messages">
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <form id="register-form" class="register-form register" method="post" action="{% url 'account_login' %}">
+                            {% csrf_token %}
+                            <input class="register-input white-input" required="" name="login" placeholder="User Name*" type="text">
+                            <input class="register-input white-input" required="" name="password" placeholder="Password*" type="password">
+                            <p>
+                                <label for="id_remember">Remember Me Now:</label>
+                                <input type="checkbox" name="remember" id="id_remember">
+                            </p>
+                            <input value="Sign In" class="register-submit" type="submit">
+                            <span class="helptext"><a href="{% url 'account_reset_password' %}">Forgot your password?</a></span>
+                        </form>
+                        <hr>
+                        <h2>Or use a third-party</h2>
+                        <ul>
+                            <li><a title="Google" href="{% provider_login_url 'google' %}?process=login">Google</a></li>
+                        </ul>
+                        <p class="register-form-terms">Terms and Conditions</p>
+                    </div>
+                </div>
+
+                <div class="col-md-7 margin-top-20">
+                    <div class="video-popup-wrapper margin-left-20">
+                        <div class="popup-gallery">
+                            <img src="{% static 'home/images/hero-img2.jpg' %}" class="width-100 hero-images" alt="pic">
+                            <a class="popup4 video-play-icon" href="https://www.youtube.com/watch?v=FPfQMVf4vwQ">
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="integration-platforms">
+                        <h5>Easy To Integrate With:</h5>
+                        <ul class="integration-mentions">
+                            <li><img src="{% static 'home/images/app01.png' %}" alt="Name"></li>
+                            <li><img src="{% static 'home/images/app02.png' %}" alt="Name"></li>
+                            <li><img src="{% static 'home/images/app03.png' %}" alt="Name"></li>
+                            <li><img src="{% static 'home/images/app04.png' %}" alt="Name"></li>
+                            <li><img src="{% static 'home/images/app05.png' %}" alt="Name"></li>
+                            <li><img src="{% static 'home/images/app06.png' %}" alt="Name"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <div class="container-fluid px-0">
+            <div class="row no-gutters mx-0">
+                <div class="col-md-4 footer-white-box text-center">
+                    <i class="pe-7s-map-2"></i>
+                    <h5>Get In Touch</h5>
+                    <p>10 Oxford Street, London, UK, E1 1EC</p>
+                    <p><a href="mailto:contact@youremail.com">the-office@square.co.uk</a></p>
+                    <p>+44 987 654 321</p>
+                </div>
+                <div class="col-md-4 footer-dark-grey-box text-center">
+                    <i class="pe-7s-comment"></i>
+                    <h5>Social Media</h5>
+                    <p>See below where you can find us.</p>
+                    <ul class="footer_social">
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fab fa-skype"></i></a></li>
+                        <li><a href="#"><i class="fab fa-dribble"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 footer-grey-box text-center">
+                    <i class="pe-7s-link"></i>
+                    <h5>Useful Links</h5>
+                    <a href="#" class="footer-links">Our Cookies Policy</a>
+                    <a href="#" class="footer-links">Meet The Team Behind Square</a>
+                    <a href="#" class="footer-links">Terms and Conditions</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 footer-bottom text-center">
+                    <p>Copyright © 2019 <strong>Square</strong>. Designed by <a href="https://themeforest.net/user/epic-themes/portfolio?ref=Epic-Themes" target="_blank">Epic-Themes</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'home/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'home/js/jquery.scrollTo-min.js' %}"></script>
+    <script src="{% static 'home/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'home/js/jquery.nav.js' %}"></script>
+    <script src="{% static 'home/js/wow.js' %}"></script>
+    <script src="{% static 'home/js/plugins.js' %}"></script>
+    <script src="{% static 'home/js/custom.js' %}"></script>
+</body>
+</html>

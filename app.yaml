@@ -1,0 +1,22 @@
+runtime: python39  # Use the appropriate Python runtime
+entrypoint: gunicorn -b :$PORT id_card_generator.wsgi  # Adjust if needed based on your project structure
+
+env: standard
+
+env_variables:
+  DJANGO_SECRET_KEY: "58pce*vmol_68vp$32^*&9@_27+(06i-*yrbt%0#%l)42=xd8^"
+  DJANGO_DEBUG: "False"  # Change to False for production
+  DJANGO_ALLOWED_HOSTS: "smartcardprint.in,www.smartcardprint.in"  # Replace with your actual domain
+  DB_NAME: "idproject"
+  DB_USER: "root"  # Update if your DB user is different
+  DB_PASSWORD: ""  # Add your DB password here
+  DB_HOST: "localhost"  # Change this to your actual DB host if needed
+  DB_PORT: "3306"
+  PHONEPE_MERCHANT_ID: "your_phonepe_merchant_id"
+  PHONEPE_SECRET_KEY: "your_phonepe_secret_key"
+
+handlers:
+  - url: /static
+    static_dir: static/
+  - url: /.*  # This will catch all other URLs
+    script: auto
